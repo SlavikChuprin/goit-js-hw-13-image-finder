@@ -1,0 +1,70 @@
+body {
+  margin: 0 auto;
+  font-family: sans-serif;
+  font-weight: 400;
+}
+
+.input {
+  display: block;
+  margin-top: 20px;
+  margin-right: auto;
+  margin-left: auto;
+  min-width: 500px;
+  height: 40px;
+  border: 1px solid grey;
+  border-radius: 4px;
+  padding: 5px;
+}
+
+.input:hover {
+  border: 1px solid blue;
+}
+
+.countries-list {
+  font-size: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.country-name {
+  text-align: center;
+}
+
+.country {
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: nowrap;
+  font-size: 24px;
+}
+
+.property {
+  width: 20%;
+  align-items: center;
+  justify-content: start;
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: 5px;
+}
+
+.flag-img {
+  border: 1px solid black;
+  width: 350px;
+  margin-left: 20px;
+}
+
+.property-name {
+  margin-right: 10px;
+  font-size: 24px;
+}
+
+.lang-item {
+  margin-top: 2px;
+}
+
+p {
+  margin-right: 20px;
+}
