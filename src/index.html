@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Country Finder</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/1.0.0/modern-normalize.min.css"
@@ -13,8 +14,9 @@
     <link href="../node_modules/@pnotify/core/dist/BrightTheme.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
-   <input class="input" type="text">
-   <div class="countries-result"></div>
+  <form class="search-form" id="search-form">
+    <input type="text" name="query" autocomplete="off" placeholder="Search images..." />
+  </form>
    
     <script src="./index.js"></script>
   </body>
