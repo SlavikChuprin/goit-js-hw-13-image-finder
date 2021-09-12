@@ -135,8 +135,7 @@ Pixabay API поддерживает пагинацию, пусть в отве�
 
 Страница должна автоматически плавно проскроливаться после рендера изображений, чтобы перевести
 пользователя на следующие загруженные изображения. Используй метод
-[Element.scrollIntoView()](https://developer
-.mozilla.org/en-US/docs/Web/API/Element/scrollIntoView).
+[Element.scrollIntoView()](https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollIntoView).
 
 ```js
 const element = document.getElementById('.my-element-selector');
