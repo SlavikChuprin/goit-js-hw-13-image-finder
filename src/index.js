@@ -44,12 +44,11 @@ function fetchPictures() {
   newsApiService.fetchPictures()
   .then((pics)=> {  
     if (pics.total === 0) {
-    myAlert(notFound, 'info')
+    myAlert(notFound, 'info');
+    return;
   }
   else if (pics.total <= 12 ){
-
      loadMoreBtn.hide();
-     
   } 
 
    appendPicsGalleryMarkup(pics);
