@@ -39,21 +39,23 @@ function onSearch(e) {
     
 };
 
-function renderPicsGalleryList(pics){ 
-if (pics.total === 0){
-    myAlert(notFound, 'info')
-}
- const list = picCardsTpl(pics.hits);
- refs.picsGallaryMarkUp.insertAdjacentHTML('beforeend', list);
-};
-
 function fetchPictures() {
   loadMoreBtn.disable();
-  newsApiService.fetchPictures().then(pics => {
+  newsApiService.fetchPictures()
+  .then((pics)=> {  
+    if (pics.total === 0) {
+    myAlert(notFound, 'info')
+  }
+  else if (pics.total <= 12 ){
+
+     loadMoreBtn.hide();
+     
+  } 
+
    appendPicsGalleryMarkup(pics);
     loadMoreBtn.enable();
     scrollAfterRender ();
-  });
+  })
 }
 
 function appendPicsGalleryMarkup(pics) {
