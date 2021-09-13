@@ -35,8 +35,7 @@ function onSearch(e) {
     newsApiService.resetPage();
     clearArticlesContainer();
     fetchPictures(); 
-    scrollAfterRender();
-    
+      
 };
 
 function fetchPictures() {
@@ -45,6 +44,7 @@ function fetchPictures() {
   .then((pics)=> {  
     if (pics.total === 0) {
     myAlert(notFound, 'info');
+    loadMoreBtn.hide();
     return;
   }
   else if (pics.total <= 12 ){
