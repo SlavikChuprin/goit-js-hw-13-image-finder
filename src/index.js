@@ -1,29 +1,42 @@
 import './sass/main.scss';
-import fetchPicture from './js/apiService';
+import NewsApiService from './js/apiService';
 import picCardsTpl from './templates/picCards.hbs';
 import { alert, defaults, Stack } from '@pnotify/core';
 const _ = require('lodash');
+import LoadMoreBtn from './js/components/load-more-btn';
+defaults.mode = 'dark';
+defaults.hide= true;
+defaults.delay= 3000;
 const notFound = "We did not find a picture for this request. Try to change your request:) "
 const refs={
     input: document.querySelector('input'),
     picsGallaryMarkUp: document.querySelector('.search-result'),
 };
-// const element = document.getElementById('.my-element-selector');
-// element.scrollIntoView({
-//   behavior: 'smooth',
-//   block: 'end',
-// });
+const newsApiService = new NewsApiService();
+
+const loadMoreBtn = new LoadMoreBtn({
+  selector: '[data-action="load-more"]',
+  hidden: true,
+});
+
+
 
 refs.input.addEventListener('input',_.debounce(onSearch,500));
+loadMoreBtn.refs.button.addEventListener('click', fetchPictures);
 
 function onSearch(e) {
-    const searchQuery= e.target.value;
-    if(searchQuery && searchQuery !== " " ){
-    fetchPicture(searchQuery)
-    .then((pics)=> renderPicsGalleryList(pics))
-    .catch((error)=> console.log( error))
-   }
-   return 
+     newsApiService.searchQuery= e.target.value;
+    if(!newsApiService.searchQuery || newsApiService.searchQuery === ' ') {
+        clearArticlesContainer();
+        loadMoreBtn.hide();
+        return ;
+    }
+    loadMoreBtn.show();
+    newsApiService.resetPage();
+    clearArticlesContainer();
+    fetchPictures(); 
+    scrollAfterRender();
+    
 };
 
 function renderPicsGalleryList(pics){ 
@@ -31,9 +44,33 @@ if (pics.total === 0){
     myAlert(notFound, 'info')
 }
  const list = picCardsTpl(pics.hits);
- refs. picsGallaryMarkUp.innerHTML = list;
+ refs.picsGallaryMarkUp.insertAdjacentHTML('beforeend', list);
 };
 
+function fetchPictures() {
+  loadMoreBtn.disable();
+  newsApiService.fetchPictures().then(pics => {
+   appendPicsGalleryMarkup(pics);
+    loadMoreBtn.enable();
+    scrollAfterRender ();
+  });
+}
+
+function appendPicsGalleryMarkup(pics) {
+  refs.picsGallaryMarkUp.insertAdjacentHTML('beforeend', picCardsTpl(pics.hits));
+};
+
+function clearArticlesContainer() {
+  refs.picsGallaryMarkUp.innerHTML = '';
+};
+
+function scrollAfterRender () {
+    const element = document.getElementById('button');
+    element.scrollIntoView({
+    behavior: 'smooth',
+    block: 'end',
+});
+} 
 
 function myAlert(text, type) {
      refs.picsGallaryMarkUp.innerHTML='';
@@ -41,11 +78,3 @@ alert({
   text,
   type,
 });};
-
-
-  
-
-defaults.mode = 'dark';
-defaults.hide= true;
-defaults.delay= 3000;
-
